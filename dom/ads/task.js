@@ -1,10 +1,18 @@
-const rotatorCase = Array.from(document.getElementsByClassName("rotator__case"));
+const rotator = document.querySelector(".rotator");
 
-let activeIndex = rotatorCase.indexOf(document.getElementsByClassName("rotator__case_active").item(0));
+function changeCase() {
+    const rotatorActive = document.querySelector(".rotator__case_active");
+    let nextRotatorActive = rotatorActive.nextElementSibling;
 
-setInterval(() => {
-    rotatorCase[activeIndex].classList.remove("rotator__case_active");
-    activeIndex = (activeIndex + 1) % rotatorCase.length;
-    rotatorCase[activeIndex].classList.add("rotator__case_active");
-    rotatorCase[activeIndex].style.color = rotatorCase[activeIndex].dataset.color;
-}, parseInt(rotatorCase[activeIndex].dataset.speed));
+    if (nextRotatorActive == null) {
+        nextRotatorActive = rotator.firstElementChild;
+    }
+
+    rotatorActive.classList.toggle("rotator__case_active");
+    nextRotatorActive.classList.toggle("rotator__case_active");
+    nextRotatorActive.style.color = nextRotatorActive.dataset.color;
+    const speed = nextRotatorActive.dataset.speed;
+    return setTimeout(changeCase, parseInt(speed));
+}
+
+changeCase();
