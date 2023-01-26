@@ -4,9 +4,12 @@ const menuSub = Array.from(document.getElementsByClassName("menu_sub"));
 menuLink.forEach(el => {
     el.onclick = function () {
         let activeSelect = el.nextElementSibling;
-        if(activeSelect !==null && activeSelect.classList.contains("menu_sub") && activeSelect.classList.contains("menu_active")) {
+
+        if (activeSelect === null) {
+            return;
+        } else if (activeSelect.classList.contains("menu_sub") && activeSelect.classList.contains("menu_active")) {
             activeSelect.classList.remove("menu_active");
-        } else if(activeSelect !==null && activeSelect.classList.contains("menu_sub")) {
+        } else if (activeSelect.classList.contains("menu_sub")) {
             menuSub.forEach(el => el.classList.remove("menu_active"));
             activeSelect.classList.add("menu_active");
         } else {
