@@ -21,12 +21,12 @@ chatWidget.addEventListener("click", () => {
 });
 
 chatInput.addEventListener("keydown", function(e) {
-    if (e.key == "Enter" && chatInput.value) {
+    if (e.key == "Enter" && chatInput.value.trim()) {
         chatMessages.innerHTML += 
             `<div class="message message_client">
                 <div class="message__time">${hh}:${mm}</div>
                 <div class="message__text">
-                    ${chatInput.value.trim()}
+                    ${chatInput.value}
                 </div>
             </div>`;
         chatInput.value="";
