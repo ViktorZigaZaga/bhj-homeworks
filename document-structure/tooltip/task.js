@@ -1,16 +1,15 @@
 const tooltipArray = Array.from(document.getElementsByClassName("has-tooltip"));
-let toolTip = null;
+let toolTip = document.createElement("div");
 
 tooltipArray.forEach((el) => {
 	el.addEventListener("click", (event)=> {
         const tooltipDelete = document.querySelector(".tooltip");
         event.preventDefault();
 
-        if (tooltipDelete) {
+        if (el.target === tooltipDelete) {
             tooltipDelete.remove();
             return;
         } else {
-            toolTip = document.createElement("div");
             document.body.append(toolTip);
             toolTip.classList.add("tooltip");
             toolTip.classList.add("tooltip_active");
