@@ -18,19 +18,18 @@ form.addEventListener("submit", (event) => {
     xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/auth");
     let data = new FormData(form);
     xhr.send(data);
-    xhr.addEventListener("readystatechange", () => {
-        if (xhr.readyState === xhr.DONE) {
-            const json = JSON.parse(xhr.response);
-            if (json.success) {
-                storedUser = localStorage.setItem("user", JSON.stringify(json.user_id));
-                userId.textContent = json.user_id;
-                signin.classList.remove("signin_active");
-                welcome.classList.add("welcome_active");       
-            } else {
-                alert("Неверный логин/пароль");
-            }
-        } 
-        inputControls.forEach(el => el.value = "");
+    xhr.addEventListener("load", () => {
+        const json = JSON.parse(xhr.response);
+        if (json.success) {
+            storedUser = localStorage.setItem("user", JSON.stringify(json.user_id));
+            userId.textContent = json.user_id;
+            form.reset();
+            signin.classList.remove("signin_active");
+            welcome.classList.add("welcome_active");       
+        } else {
+            alert("Неверный логин/пароль");
+        }
+        form.reset();
     });
 });
 
