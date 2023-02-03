@@ -16,7 +16,7 @@ if (localStorage.getItem("taskListArray")) {
 taskAdd.addEventListener("click", (event) => {
     event.preventDefault();
     const inputValue = taskInput.value;
-    if (inputValue !== "") {
+    if (inputValue.trim() !== "") {
         let taskItem = {
             id: Date.now(), 
             value: inputValue
