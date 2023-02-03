@@ -36,19 +36,14 @@ products.forEach((product) => {
         let products = [...cart.querySelectorAll(".cart__product")];
         let productHasCart = products.find(product => product.getAttribute("data-id") === id);
         let productInCart;
-        products.forEach((el) => {
-            if (el.dataset.id == id) {
-                productInCart = el;
-            }
-        });    
+        productInCart = products.find((el) => el.dataset.id == id);
         if (productHasCart) {
             let cartCount = productInCart.querySelector(".cart__product-count");
             cartCount.textContent = Number(count) + Number(cartCount.textContent);
-            storedProducts.forEach(el => {
-                if (el.id == id) {
-                    el.count += Number(count) + Number(el.count);
-                }
-            });
+
+            const countElInCart = storedProducts.find((el) => el.id == id);
+            countElInCart.count = Number(count) + Number(countElInCart.count);
+
             locationsProductInCart = productInCart.getBoundingClientRect();
         } else {
             let storedProduct = {
@@ -103,17 +98,9 @@ cart.onclick = function(event) {
     const id = target.closest(".cart__product").dataset.id;
     if (target.classList.contains("cart__product-count") && target.textContent != 1) {
         target.textContent --;
-        storedProducts.forEach(el => {
-            if (el.id == id) {
-                el.count--;
-            }
-        });   
+        storedProducts.find((el) => el.id == id).count--;
     } else {
-        storedProducts.forEach(el => {
-            if (el.id == id) {
-                storedProducts.splice(el,1);
-            }
-        });
+        storedProducts.splice(storedProducts.find((el) => el.id == id),1);
         target.closest(".cart__product").remove();
     }
     localStorage.setItem('storedProducts', JSON.stringify(storedProducts));
